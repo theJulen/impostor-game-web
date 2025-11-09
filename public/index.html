@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Impostor Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <div id="lobbyScreen" class="screen active">
+            <h2>Impostor Online</h2>
+            <input type="text" id="usernameInput" placeholder="Escribe tu nombre">
+            
+            <button id="joinPublicRoomBtn" class="btn-success">Unirse a Sala Pública</button>
+            <hr>
+            
+            <button id="createPublicRoomBtn">Crear Sala Pública</button>
+            <button id="createPrivateRoomBtn">Crear Sala Privada</button>
+            
+            <hr>
+            <input type="text" id="roomCodeInput" placeholder="Unirse con código">
+            <button id="joinRoomBtn">Unirse a Sala</button>
+        </div>
+
+        <div id="roomScreen" class="screen">
+            <h3>Sala: <span id="roomCodeDisplay"></span></h3>
+            <p>Visibilidad: <span id="roomVisibility">Privada</span></p>
+            <p>Modo de Juego: <span id="gameModeDisplay">No seleccionado</span></p>
+            <p><strong>Jugadores:</strong></p>
+            <ul id="playerList"></ul>
+            
+            <div id="hostControls" style="display: none;">
+                <label for="impostorCountSelect">Impostores:</label>
+                <select id="impostorCountSelect">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+                
+                <label for="maxPlayersSelect">Máx. Jugadores:</label>
+                <select id="maxPlayersSelect">
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                
+                <p>Elige el modo:</p>
+                <button id="modeIRLBtn">En la Vida Real (IRL)</button>
+                <button id="modeOnlineBtn">Online (con chat)</button>
+                <hr>
+                <button id="startGameBtn">¡Empezar Juego! (Mín. 3)</button>
+            </div>
+            <button id="leaveRoomBtn" class="btn-danger">Salir de la Sala</button>
+        </div>
+
+        <div id="gameScreen" class="screen">
+            <div id="gameTimer">90</div>
+            <h2 id="gameStatus">Cargando...</h2>
+            
+            <h3>El tema es: <span id="gameCategory"></span></h3>
+            <h1>Tu palabra: <span id="gameWord"></span></h1>
+            <p id="roleInfo" class="role"></p>
+            
+            <div id="chatOnline" style="display: none;">
+                <div id="chatMessages"></div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Espera tu turno..." disabled>
+                    <button id="sendChatBtn">Enviar</button>
+                </div>
+            </div>
+
+            <div id="controlsIRL" style="display: none;">
+                <p>¡Es tu turno de hablar en la vida real!</p>
+                <button id="nextTurnIRLBtn" disabled>Siguiente Turno</button>
+            </div>
+        </div>
+
+        <div id="votingScreen" class="screen">
+            <h2>¡Hora de Votar!</h2>
+            <p>¿Quién crees que es el impostor?</p>
+            <div id="votingButtons"></div>
+            <p id="voteStatus"></p>
+        </div>
+
+        <div id="ejectedOverlay" class="overlay" style="display: none;">
+            <div class="overlay-content">
+                <h2>Has sido expulsado</h2>
+                <p>Estás muerto. No puedes hablar ni votar, pero puedes ver la partida.</p>
+                <p id="ejectedRoleInfo" class="role"></p>
+                <button id="closeEjectedOverlayBtn">Cerrar</button>
+            </div>
+        </div>
+        
+        <div id="gameEndOverlay" class="overlay" style="display: none;">
+            <div class="overlay-content">
+                <h2 id="gameEndTitle">¡Fin de la Partida!</h2>
+                <p id="gameEndWinner"></p>
+                <p id="gameEndImpostors"></p>
+                <button id="backToLobbyBtn">Volver a la Sala</button>
+            </div>
+        </div>
+
+    </div> <footer>
+        <p>Creado por BP4P</p>
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>

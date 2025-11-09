@@ -1,0 +1,308 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    --bg-color: #1a1a1d;
+    --card-color: #2c2c31;
+    --border-color: #444;
+    --text-color: #f4f4f4;
+    --text-muted: #9e9e9e;
+    --accent-color: #615bff;
+    --accent-hover: #4a47d4;
+    --danger-color: #e53935;
+    --danger-hover: #c62828;
+    --success-color: #43a047;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 500px;
+    width: 100%;
+}
+
+.screen {
+    display: none;
+    background: var(--card-color);
+    padding: 30px 35px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color);
+}
+
+.screen.active {
+    display: block;
+}
+
+h1, h2, h3 {
+    margin-bottom: 15px;
+    color: white;
+}
+h1 { font-size: 2em; }
+h2 { font-size: 1.6em; }
+p { color: var(--text-muted); line-height: 1.6; }
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 20px 0;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-size: 16px;
+    background: #1e1e1e;
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+}
+input[type="text"]::placeholder {
+    color: var(--text-muted);
+}
+input[type="text"]:focus, select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(97, 91, 255, 0.3);
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--accent-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+button:hover {
+    background-color: var(--accent-hover);
+}
+button:active {
+    transform: scale(0.98);
+}
+button:disabled {
+    background-color: #333;
+    color: #777;
+    cursor: not-allowed;
+}
+
+.btn-danger, #leaveRoomBtn {
+    background-color: var(--danger-color);
+}
+.btn-danger:hover, #leaveRoomBtn:hover {
+    background-color: var(--danger-hover);
+}
+
+#startGameBtn, #nextTurnIRLBtn {
+    background-color: var(--success-color);
+}
+#startGameBtn:hover, #nextTurnIRLBtn:hover {
+    background-color: #388e3c;
+}
+
+.kick-btn {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-left: 10px;
+    cursor: pointer;
+    line-height: 22px;
+    padding: 0;
+    min-width: 22px;
+}
+.kick-btn:hover {
+    background: var(--danger-hover);
+}
+
+#playerList {
+    list-style: none;
+    padding: 10px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+#playerList li {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#playerList li:last-child { border-bottom: none; }
+#playerList li[data-status="dead"] {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+#roomCodeDisplay {
+    background: #1e1e1e;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: monospace;
+    font-weight: bold;
+    color: var(--accent-color);
+    display: inline-block;
+}
+
+.role {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+p#roleInfo.role { margin-bottom: 15px; }
+
+#gameTimer {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--accent-color);
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: var(--card-color);
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: none; 
+}
+
+#chatMessages {
+    height: 150px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow-y: scroll;
+    padding: 10px;
+    text-align: left;
+    margin-bottom: 10px;
+    background: #1e1e1e;
+}
+#chatMessages p { margin: 0 0 5px 0; color: #eee; }
+#chatMessages p strong { color: var(--accent-color); }
+#chatMessages p i { color: var(--text-muted); font-style: italic; }
+
+.chat-input-area { display: flex; }
+.chat-input-area input { flex-grow: 1; margin: 0; }
+.chat-input-area button { width: auto; margin-left: 10px; padding: 12px 15px; }
+
+#votingButtons button {
+    background-color: #333;
+    margin-bottom: 5px;
+}
+#votingButtons button:hover {
+    background-color: #444;
+}
+#votingButtons button:disabled {
+    background-color: var(--accent-color);
+    color: white;
+    opacity: 0.7;
+}
+#voteStatus {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.overlay.active {
+    display: flex;
+}
+
+.overlay-content {
+    background: var(--card-color);
+    padding: 30px 40px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 1px solid var(--border-color);
+}
+.overlay-content h2 {
+    color: var(--accent-color);
+}
+.overlay-content p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+.overlay-content button {
+    width: auto;
+    padding: 10px 30px;
+}
+
+#ejectedOverlay .overlay-content h2 {
+    color: var(--danger-color);
+}
+#ejectedRoleInfo {
+    color: white !important;
+}
+.btn-success {
+    background-color: var(--success-color);
+}
+.btn-success:hover {
+    background-color: #388e3c;
+}
+
+#roomVisibility {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 5px;
+    }
+    
+    .screen {
+        padding: 20px 15px;
+    }
+
+    h1 { font-size: 1.8em; }
+    h2 { font-size: 1.4em; }
+
+    #gameTimer {
+        top: 10px;
+        right: 15px;
+    }
+}
